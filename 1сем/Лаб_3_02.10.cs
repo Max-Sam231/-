@@ -22,8 +22,8 @@ namespace ConsoleApp1
                 cur = Convert.ToInt32(Console.ReadLine());
                 if (prev % 2 == 0 && cur % 2 == 0)
                 {
-                    cnt += 1;
-                    mx = cnt;
+                     cnt += 1;
+                     if (cnt > mx) { mx = cnt; }
                 }
                 else
                 {

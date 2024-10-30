@@ -58,31 +58,31 @@ namespace ConsoleApp1
 
 
             // 3 задача определить длину подпоследовательности из чётных элементов с наибольший суммой элементов и вывести длину подпоследовательности
-            int prev3, cur3, n3, cnt3 = 1, mx3 = 1, mxSum = 0, Sum = 0, oneMx = 0;
-            n3 = Convert.ToInt32(Console.ReadLine());
-            prev3 = Convert.ToInt32(Console.ReadLine());
-            Sum = prev3;
-            for (int i = 1; i < n3; i++)
+            int cur, curLen = 0, n;
+            n = Convert.ToInt32(Console.ReadLine());
+            int mnLen = n + 1;
+            for (int i = 0; i < n; i++)
             {
-                cur3 = Convert.ToInt32(Console.ReadLine());
-                if (cur3 > oneMx && cur3 % 2 == 0) { oneMx = cur3; }
-                if (prev3 % 2 == 0 && cur3 % 2 == 0)
-                {
-                    Sum += cur3;
-                    cnt3 += 1;
-                    mx3 = cnt3;
-                    if (Sum > mxSum) { mxSum = Sum; }
-                }
+                cur = Convert.ToInt32(Console.ReadLine());
+                if (cur % 2 == 0) {curLen++;}
                 else
                 {
-                    Sum = cur3;
-                    cnt3 = 1;
-                    prev3 = cur3;
+                    if (curLen > 0)
+                    {mnLen = Math.Min(curLen, mnLen);}
+                    curLen = 0;
                 }
-                if (mxSum < oneMx) { mxSum = oneMx; mx3 = 1; }
-                if (mxSum == 0) { mx3 = 0; }
             }
-            Console.WriteLine($"Сумма {mxSum} Длина {mx3}");
+            if (curLen > 0)
+            {mnLen = Math.Min(curLen, mnLen);}
+            
+            if (mnLen == n + 1)
+            {
+                Console.WriteLine("Четных элементов в последовательности нет.");
+            }
+            else
+            {
+                Console.WriteLine($"Минимальная длина подпоследовательности из четных элементов: {mnLen}");
+            }
         }
     }
 }

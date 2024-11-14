@@ -17,7 +17,6 @@ namespace ConsoleApp1
             n = Convert.ToInt32(Console.ReadLine());
             m = Convert.ToInt32(Console.ReadLine());
             int[,] matrix = new int[n, m];
-            int[] rowArr = new int[n];
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
@@ -36,21 +35,26 @@ namespace ConsoleApp1
                 }
                 Console.WriteLine();
             }
-            int[] minRow = new int[n];
-            for (int i = 0; i < n; i++) { minRow[i] = 1000; }
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < m; j++)
-                {
-                    minRow[i] = Math.Min(matrix[i, j], minRow[i]);
-                }
-            }
+             int[] minRow = new int[n];
+             int[] maxRow = new int[n];
+             for (int i = 0; i < n; i++) { minRow[i] = matrix[i, 0]; }
+             for (int i = 0; i < n; i++)
+             {
+                 for (int j = 0; j < m; j++)
+                 {
+                     minRow[i] = Math.Min(matrix[i, j], minRow[i]);
+                     maxRow[i] = Math.Max(matrix[i, j], maxRow[i]);
+                 }
+             }
             int[] maxCol = new int[m];
+            int[] minCol = new int[m];
+            for (int j = 0; j < m; j++) { minCol[j] = matrix[0, j]; }
             for (int j = 0; j < m; j++)
             {
                 for (int i = 0; i < n; i++)
                 {
                     maxCol[j] = Math.Max(matrix[i, j], maxCol[j]);
+                    minCol[j] = Math.Min(matrix[i, j], minCol[j]);
                 }
             }
             for (int i = 0; i < n; i++)
@@ -58,7 +62,9 @@ namespace ConsoleApp1
                 for (int j = 0; j < m; j++)
                 {
                     if (matrix[i, j] == maxCol[j] && matrix[i, j] == minRow[i])
-                    { Console.WriteLine(matrix[i, j]); }
+                    { Console.WriteLine($"Минимальный в строке и максимальный в столбце {matrix[i, j]}"); }
+                    if (matrix[i, j] == minCol[j] && matrix[i, j] == maxRow[i])
+                    { Console.WriteLine($"Максимальный в строке и минимальный в столбце {matrix[i, j]}"); }
                 }
             }
         }
